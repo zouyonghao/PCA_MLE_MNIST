@@ -6,8 +6,9 @@ def mean2D(X):
     sum = np.zeros_like(X[0], dtype=float)
     count = len(X)
     for i in range(len(X)):
-        for j in range(len(X[0])):
-            sum[j] += X[i][j]
+        # for j in range(len(X[0])):
+        #     sum[j] += X[i][j]
+        sum = sum + X[i]
     for i in range(len(X[0])):
         mean[i] = sum[i] / count
     return mean
@@ -19,8 +20,9 @@ def normalize2D(X):
     m = mean2D(X)
     # print(m)
     for i in range(len(X)):
-        for j in range(len(X[0])):
-            newX[i][j] = X[i][j] - m[j]
+        # for j in range(len(X[0])):
+        #     newX[i][j] = X[i][j] - m[j]
+        newX[i] = X[i] - m
     return newX
 
 

@@ -17,7 +17,7 @@ while index < len(buf):
 
 # print(train_data[0])
 # print(len(train_data[0]))
-# print(len(train_data))
+print(len(train_data))
 
 # plt.imshow(im[0], cmap='gray')
 # pylab.show()

@@ -6,6 +6,8 @@ X = [[7, 2.1, 3.1],
 
 X = np.array(X)
 
+m = mean2D(X)
+
 # print(X)
 
 # print(normalize2D(X))
@@ -13,4 +15,6 @@ X = np.array(X)
 # print(np.sum(X, axis=0))
 # print(Xbar)
 # print(eig(np.dot(X.T, X)))
-print(PCA(X, 2))
+result = PCA(X, 2)
+
+print(result + m[:2])
