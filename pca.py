@@ -1,6 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+'pca'
+
+__author__ = 'Yong-Hao Zou'
+
 import numpy as np
 
 # X must be a 2D array
+
+
 def mean2D(X):
     mean = np.zeros_like(X[0], dtype=float)
     sum = np.zeros_like(X[0], dtype=float)
@@ -15,6 +23,8 @@ def mean2D(X):
 
 # X must be a 2D array
 # convert X to zero mean
+
+
 def normalize2D(X):
     newX = np.zeros(np.array(X).shape)
     m = mean2D(X)
@@ -35,25 +45,32 @@ def eig(X):
     eigenVectors = eigenVectors[idx]
     return (eigenValues, eigenVectors)
 
+
 def PCA(X, dimensions):
     X = normalize2D(X)
     eigenValues, eigenVectors = eig(np.dot(X.T, X) / X.shape[0])
     # print(eigenVectors[:, :dimensions])
-    return np.dot(X, eigenVectors[:, :dimensions])
+    # remain some features ...
+    return (np.dot(X, eigenVectors[:, :dimensions]), eigenVectors[:,:dimensions])
 
-# test
-# X = [[7, 2.1, 3.1],
-#      [1, 1.9, 3],
-#      [9, 1.9, 3]]
 
-# X = np.array(X)
+if __name__ == '__main__':
+    # test
+    X = [[7, 2.1, 3.1],
+         [1, 1.9, 3],
+         [9, 1.9, 3]]
 
-# print(X)
+    X = np.array(X)
 
-# print(normalize2D(X))
+    m = mean2D(X)
 
-# print(np.sum(X, axis=0))
-# print(Xbar)
-# print(eig(np.dot(X.T, X)))
-# print(PCA(X, 2))
+    print(X)
 
+    print(normalize2D(X))
+
+    print(np.sum(X, axis=0))
+
+    print(eig(np.dot(X.T, X)))
+    result = PCA(X, 2)
+
+    print(result + m[:2])
