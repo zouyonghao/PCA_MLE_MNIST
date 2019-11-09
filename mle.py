@@ -32,32 +32,33 @@ def cov(X, mean):
     # tmp = tmp.T
     # print(tmp)
     # print(np.dot(tmp, tmp.T))
-    return np.matmul(tmp.T, tmp)
-    # result = np.matmul(tmp.T, tmp) / (len(tmp) - 1)
-    # a = np.zeros(result.shape)
-    # np.fill_diagonal(a, 0.1)
+    # return np.matmul(tmp.T, tmp)
+    # return np.matmul(tmp.T, tmp) / (len(tmp) - 1)
 
-    # return np.matmul(result, a)
+
+    result = np.matmul(tmp.T, tmp) # / (len(tmp) - 1)
+    a = np.zeros(result.shape)
+    np.fill_diagonal(a, 0.1)
+
+    return np.matmul(result, a)
 
 
 def gaussian(X, mean, cov):
     tmp = X - mean
-    # print(np.linalg.det(var))
-    # print(tmp.T.dot(np.linalg.inv(var)).dot(tmp))
-    # print(1 / math.sqrt(np.linalg.det(var)))
-    # print(math.exp(- 0.5 * tmp.T.dot(np.linalg.inv(var)).dot(tmp)))
-    sign, logdet = np.linalg.slogdet(cov)
-    # print(np.linalg.det(cov))
-    
-    return (1 / math.sqrt(sign * np.log(logdet))) * math.exp(- 0.5 * tmp.dot(np.linalg.inv(cov)).dot(tmp.T))
-    # return math.fabs(tmp.sum())
-    # return (1 / math.sqrt(np.linalg.det(cov))) * math.exp(- 0.5 * tmp.dot(np.linalg.inv(cov)).dot(tmp.T))
 
+    # use logdet
+    sign, logdet = np.linalg.slogdet(cov)
+    return (1 / math.sqrt(np.abs(logdet))) * math.exp(- 0.5 * tmp.dot(np.linalg.inv(cov)).dot(tmp.T))
+
+    # use original det
+    # det = np.linalg.det(cov)
+    # return (1 / math.sqrt(det)) * math.exp(- 0.5 * tmp.dot(np.linalg.inv(cov)).dot(tmp.T))
 
 if __name__ == "__main__":
     X = np.array([
-        [1, 8, 1],
-        [4, 5, 8]
+        [37, 1, 11],
+        [8, 6, 8],
+        [4, 5, 3]
     ])
     mean = mean2D(X)
     print(mean)
@@ -68,5 +69,5 @@ if __name__ == "__main__":
     print("np.cov")
     print(np.cov(X.T))
 
-    # Y = np.array([1, 3, 9])
-    print(gaussian(X, mean, var))
+    Y = np.array([1, 3, 9])
+    print(gaussian(Y, mean, var))

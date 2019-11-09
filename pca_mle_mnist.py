@@ -37,7 +37,7 @@ for i in range(len(train_label)):
 train_data_mean = []
 train_data_cov = []
 for i in classified_data:
-    # i是每行表示一个数据，故将其转置
+    # i是每行表示一个数据
     mean = mle.mean2D(i)
     train_data_mean.append(mean)
     train_data_cov.append(mle.cov(i, mean))
@@ -61,7 +61,7 @@ for i in range(len(test_data)):
     label = 0
     max = 0
     for k in range(10):
-        if predict[k] != 0 and predict[k] > max:
+        if predict[k] > max:
             max = predict[k]
             label = k
     if (label == test_label[i][0]):
