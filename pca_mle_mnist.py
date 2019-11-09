@@ -35,18 +35,17 @@ for i in range(len(train_label)):
     classified_data[train_label[i][0]].append(train_data[i])
 
 train_data_mean = []
-train_data_var = []
+train_data_cov = []
 for i in classified_data:
     # i是每行表示一个数据，故将其转置
-    tmp = np.array(i).T
-    mean = mle.mean2D(tmp)
+    mean = mle.mean2D(i)
     train_data_mean.append(mean)
-    train_data_var.append(mle.var2D(tmp, mean))
+    train_data_cov.append(mle.cov(i, mean))
 
 raw_test_data = tools.get_test_data()
 
-raw_test_data = pca.normalize2D(raw_test_data)
-test_data = np.dot(raw_test_data, eigenVectors)
+# raw_test_data = pca.normalize2D(raw_test_data)
+test_data = np.matmul(raw_test_data, eigenVectors)
 test_label = tools.get_test_label()
 
 correct = 0
@@ -57,10 +56,15 @@ for i in range(len(test_data)):
     predict = np.zeros(len(train_data_mean), )
     for j in range(10):
         predict[j] = mle.gaussian(
-            test_data[i], train_data_mean[j], train_data_var[j])
+            test_data[i], train_data_mean[j], train_data_cov[j])
 
-    label = predict.argsort()[0]
-    if (label == test_label[i]):
+    label = 0
+    max = 0
+    for k in range(10):
+        if predict[k] != 0 and predict[k] > max:
+            max = predict[k]
+            label = k
+    if (label == test_label[i][0]):
         correct += 1
         print(correct)
         print(count)

@@ -47,8 +47,8 @@ def eig(X):
 
 
 def PCA(X, dimensions):
-    X = normalize2D(X)
-    eigenValues, eigenVectors = eig(np.dot(X.T, X) / X.shape[0])
+    newX = normalize2D(X)
+    eigenValues, eigenVectors = eig(np.dot(newX.T, newX) / newX.shape[0])
     # print(eigenVectors[:, :dimensions])
     # remain some features ...
     return (np.dot(X, eigenVectors[:, :dimensions]), eigenVectors[:,:dimensions])
