@@ -26,7 +26,7 @@ def mean2D(X):
 
 def cov(X, mean):
     X = np.array(X)
-    print(X.shape)
+    # print(X.shape)
     # tmp = X
     tmp = X - mean
     # tmp = tmp.T
@@ -49,6 +49,7 @@ def gaussian(X, mean, cov):
     # use logdet
     sign, logdet = np.linalg.slogdet(cov)
     return (1 / math.sqrt(np.abs(logdet))) * math.exp(- 0.5 * tmp.dot(np.linalg.inv(cov)).dot(tmp.T))
+    # return np.log( (- 0.5) * np.matmul(np.matmul(tmp, np.linalg.inv(cov)), tmp.T) - 0.5 * logdet)
 
     # use original det
     # det = np.linalg.det(cov)

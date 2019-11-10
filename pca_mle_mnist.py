@@ -10,16 +10,16 @@ train_data = tools.get_train_data()
 
 # print(train_data[0])
 # print(len(train_data[0]))
-print(len(train_data))
+# print(len(train_data))
 
 # plt.imshow(im[0], cmap='gray')
 # pylab.show()
 
 train_label = tools.get_train_label()
 
-print(len(train_label))
+# print(len(train_label))
 
-dimension = 90
+dimension = 50
 
 train_data, eigenVectors = pca.PCA(train_data, dimension)
 
@@ -66,7 +66,7 @@ for i in range(len(test_data)):
             label = k
     if (label == test_label[i][0]):
         correct += 1
-        print(correct)
-        print(count)
+        # print(correct)
+        # print(count)
 
 print(correct / len(test_data))
